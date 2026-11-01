@@ -1,0 +1,15 @@
+{
+  "name": "Air Conditioner BTU Sizing Calculator \u2014 Room Square Footage & Tons",
+  "short_name": "ac-btu-calculator",
+  "start_url": "https://sebiglesias.com.ar/ac-btu-calculator/",
+  "display": "standalone",
+  "background_color": "#0e0d0b",
+  "theme_color": "#38bdf8",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
