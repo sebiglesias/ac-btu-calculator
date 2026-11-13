@@ -6,6 +6,17 @@
 <title>Air Conditioner BTU Sizing Calculator — Room Square Footage & Tons</title>
 <meta name="description" content="Calculate the required air conditioner BTU capacity and tonnage for your room or house. Accounts for square footage, ceiling height, direct sunlight, and kitchen heat.">
 <link rel="canonical" href="https://sebiglesias.com.ar/ac-btu-calculator/">
+  <link rel="alternate" hreflang="en" href="https://sebiglesias.com.ar/ac-btu-calculator/">
+  <link rel="alternate" hreflang="es" href="https://sebiglesias.com.ar/ac-btu-calculator/?lang=es">
+  <link rel="alternate" hreflang="de" href="https://sebiglesias.com.ar/ac-btu-calculator/?lang=de">
+  <link rel="alternate" hreflang="fr" href="https://sebiglesias.com.ar/ac-btu-calculator/?lang=fr">
+  <link rel="alternate" hreflang="it" href="https://sebiglesias.com.ar/ac-btu-calculator/?lang=it">
+  <link rel="alternate" hreflang="pt" href="https://sebiglesias.com.ar/ac-btu-calculator/?lang=pt">
+  <link rel="alternate" hreflang="nl" href="https://sebiglesias.com.ar/ac-btu-calculator/?lang=nl">
+  <link rel="alternate" hreflang="sv" href="https://sebiglesias.com.ar/ac-btu-calculator/?lang=sv">
+  <link rel="alternate" hreflang="da" href="https://sebiglesias.com.ar/ac-btu-calculator/?lang=da">
+  <link rel="alternate" hreflang="pl" href="https://sebiglesias.com.ar/ac-btu-calculator/?lang=pl">
+  <link rel="alternate" hreflang="x-default" href="https://sebiglesias.com.ar/ac-btu-calculator/">
 <meta name="theme-color" content="#38bdf8">
 <meta name="robots" content="index, follow, max-image-preview:large">
 
@@ -89,6 +100,18 @@
 <div class="container">
   
     <header>
+<div style='display:flex;justify-content:flex-end;margin-bottom:.5rem'><select id="lang-select" aria-label="Language" style="background:#24221C;border:1px solid rgba(242,239,230,.18);color:#F2EFE6;font-family:'JetBrains Mono',monospace;font-size:.72rem;padding:3px 6px;border-radius:3px;cursor:pointer;margin-left:auto">
+  <option value="en">🇺🇸 EN</option>
+  <option value="es">🇪🇸 ES</option>
+  <option value="de">🇩🇪 DE</option>
+  <option value="fr">🇫🇷 FR</option>
+  <option value="it">🇮🇹 IT</option>
+  <option value="pt">🇵🇹 PT</option>
+  <option value="nl">🇳🇱 NL</option>
+  <option value="sv">🇸🇪 SV</option>
+  <option value="da">🇩🇰 DA</option>
+  <option value="pl">🇵🇱 PL</option>
+</select></div>
       <span class="badge">HVAC & Climate Control</span>
       <h1>AC BTU Sizing Calculator</h1>
       <p class="subtitle">Determine the exact cooling capacity in BTUs and tonnage for window AC units, portable air conditioners, and mini-splits.</p>
@@ -245,5 +268,41 @@
 </div>
 
 <script src="app.js"></script>
+
+<script>
+/* I18N_AUTO_ENGINE */
+(function(){
+  const DICT = {"en": {"title": "AC BTU Calculator<span class='accent'>.</span>", "sub": "Room air conditioner sizing by square footage, ceiling height & sun exposure"}, "es": {"title": "Calculadora de BTU y Frigorías<span class='accent'>.</span>", "sub": "Dimensionamiento de aire acondicionado por m², altura y sol"}, "de": {"title": "Klimaanlage BTU & kW Rechner<span class='accent'>.</span>", "sub": "Kühlleistung nach Raumgröße, Deckenhöhe und Sonneneinstrahlung"}, "fr": {"title": "Calculateur BTU Climatisation<span class='accent'>.</span>", "sub": "Puissance clim par surface, hauteur sous plafond et ensoleillement"}, "it": {"title": "Calcolatore BTU Condizionatore<span class='accent'>.</span>", "sub": "Dimensionamento climatizzatore per mq, altezza ed esposizione"}, "pt": {"title": "Calculadora de BTUs Ar-Condicionado<span class='accent'>.</span>", "sub": "Potência ideal por área, altura do teto e incidência solar"}, "nl": {"title": "Airco BTU & Koelvermogen Calculator<span class='accent'>.</span>", "sub": "Juiste capaciteit op basis van kameroppervlak, hoogte en zon"}, "sv": {"title": "AC BTU & Kyleffekt Kalkylator<span class='accent'>.</span>", "sub": "Beräkna rätt luftkonditionering efter rumsyta och solläge"}, "da": {"title": "Aircondition BTU Beregner<span class='accent'>.</span>", "sub": "Beregn køleeffekt ud fra rumstørrelse, loftshøjde og sol"}, "pl": {"title": "Kalkulator BTU Klimatyzacji<span class='accent'>.</span>", "sub": "Dobór mocy klimatyzatora według metrażu, wysokości i nasłonecznienia"}};
+  const h1El = document.querySelector('h1');
+  const subEl = document.querySelector('.sub') || document.querySelector('header p');
+  const selEl = document.getElementById('lang-select');
+  function applyLang(lang) {
+    const entry = DICT[lang] || DICT.en;
+    document.documentElement.lang = lang;
+    if (h1El && entry.title) h1El.innerHTML = entry.title;
+    if (subEl && entry.sub) subEl.textContent = entry.sub;
+    if (lang !== 'en' && entry.sub) {
+      document.title = (h1El ? h1El.textContent : '') + ' — ' + entry.sub;
+    }
+  }
+  const params = new URLSearchParams(window.location.search);
+  const init = params.get('lang') || localStorage.getItem('ac-btu-calculator-lang') || 'en';
+  const valid = DICT[init] ? init : 'en';
+  if (selEl) {
+    selEl.value = valid;
+    selEl.addEventListener('change', function(e) {
+      const nl = e.target.value;
+      localStorage.setItem('ac-btu-calculator-lang', nl);
+      const u = new URL(window.location.href);
+      if (nl === 'en') u.searchParams.delete('lang');
+      else u.searchParams.set('lang', nl);
+      window.history.replaceState({}, '', u);
+      applyLang(nl);
+    });
+  }
+  applyLang(valid);
+})();
+</script>
+
 </body>
 </html>
